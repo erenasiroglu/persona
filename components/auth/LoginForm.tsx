@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/Button";
+import { Button } from "../ui/button";
 import { login } from "@/lib/auth";
 
 export function LoginForm() {
