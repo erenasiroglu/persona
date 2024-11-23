@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/Button";
-import { login } from "../../../persona/src/app/api/auth";
+import { login } from "@/lib/auth";
 
 export function LoginForm() {
   const router = useRouter();
@@ -36,9 +36,7 @@ export function LoginForm() {
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
-      <Button type="submit" fullWidth>
-        Login
-      </Button>
+      <Button type="submit">Login</Button>
     </form>
   );
 }
