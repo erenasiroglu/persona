@@ -14,29 +14,7 @@ const VerticalHeader = () => {
           E
         </motion.div>
 
-        <div className="flex-1 flex flex-col items-center space-y-6 mt-8">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-[#1E0E62] hover:bg-[#E1E1F0] transition-colors"
-          >
-            <Home size={20} />
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-[#1E0E62] hover:bg-[#E1E1F0] transition-colors"
-          >
-            <FileText size={20} />
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-[#1E0E62] hover:bg-[#E1E1F0] transition-colors relative"
-          >
-            <Bell size={20} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-          </motion.button>
-        </div>
+        <div className="flex-1 flex flex-col items-center space-y-6 mt-8"></div>
 
         <div className="flex flex-col items-center space-y-6 mb-6">
           <motion.button
@@ -44,13 +22,6 @@ const VerticalHeader = () => {
             className="w-10 h-10 rounded-lg flex items-center justify-center text-[#1E0E62] hover:bg-[#E1E1F0] transition-colors"
           >
             <Settings size={20} />
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="w-10 h-10 rounded-lg flex items-center justify-center text-[#1E0E62] hover:bg-[#E1E1F0] transition-colors"
-          >
-            <User size={20} />
           </motion.button>
 
           <motion.button
