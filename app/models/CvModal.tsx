@@ -8,9 +8,10 @@ export type CVModalProps = {
 const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const handleImageUpload = (e: { target: { files: any[] } }) => {
-    const file = e.target.files[0];
-    if (file) {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
