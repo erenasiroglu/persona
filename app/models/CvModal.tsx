@@ -5,7 +5,7 @@ export type CVModalProps = {
   onClose: () => void;
 };
 
-const CVModal = ({ onClose }) => {
+const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleImageUpload = (e: { target: { files: any[] } }) => {
