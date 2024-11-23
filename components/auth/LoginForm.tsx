@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/Button";
+import { motion } from "framer-motion";
 import { login } from "@/lib/auth";
 
 export function LoginForm() {
@@ -36,7 +36,7 @@ export function LoginForm() {
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
       />
-      <Button type="submit">Login</Button>
+      <motion.button type="submit">Login</motion.button>
     </form>
   );
 }
