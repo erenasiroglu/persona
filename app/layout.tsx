@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: "Build your CV with AI",
 };
 
+import { StepProvider } from "./context/StepContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -16,7 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <StepProvider>{children}</StepProvider>
+      </body>
     </html>
   );
 }

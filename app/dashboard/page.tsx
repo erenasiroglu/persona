@@ -2,9 +2,20 @@
 import React from "react";
 import StartModal from "../models/StartModal";
 import { motion } from "framer-motion";
+import { StepProvider } from "../components/StepProvider";
+import CVModal from "../models/CvModal";
+import { useStep } from "../components/StepProvider";
 
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  return (
+    <StepProvider>
+      <HomeContent />
+    </StepProvider>
+  );
+}
+
+function HomeContent() {
+  const { isModalOpen, setIsModalOpen, currentStep } = useStep();
 
   return (
     <div className="w-full h-screen bg-white flex items-center justify-center">
@@ -33,7 +44,12 @@ export default function Home() {
           >
             Get Started
           </motion.button>
-          {isModalOpen && <StartModal onClose={() => setIsModalOpen(false)} />}
+          {isModalOpen && currentStep === "start" && (
+            <StartModal onClose={() => setIsModalOpen(false)} />
+          )}
+          {isModalOpen && currentStep === "personal" && (
+            <CVModal onClose={() => setIsModalOpen(false)} />
+          )}
         </div>
       </div>
     </div>

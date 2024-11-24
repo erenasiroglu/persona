@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { X, Upload, User } from "lucide-react";
+import { useStep } from "@/app/context/StepContext";
 
 export type CVModalProps = {
   onClose: () => void;
 };
 
 const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
+  const { setCurrentStep } = useStep();
+
+  const handleClose = () => {
+    setCurrentStep("start");
+    onClose();
+  };
+
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +32,7 @@ const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
     <div className="fixed inset-0 z-50">
       <div
         className="absolute inset-0 bg-black/20 backdrop-blur-[2px]"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xl">
@@ -37,7 +45,7 @@ const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
               <p className="text-sm text-[#1E0E62]/60 mt-1">Step 1 of 4</p>
             </div>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="p-1.5 hover:bg-gray-100 rounded-full transition-colors"
             >
               <X className="h-4 w-4 text-gray-500" />
