@@ -1,11 +1,5 @@
-import VerticalHeader from "@/components/VerticalHeader";
-import HomePage from "./pages/HomePage";
+import { redirect } from "next/navigation";
 
-export default function App() {
-  return (
-    <>
-      <HomePage />
-      <VerticalHeader />
-    </>
-  );
+export default function Home() {
+  redirect("/dashboard");
 }
