@@ -13,9 +13,37 @@ import {
 } from "@/components/ui/card";
 
 export default function Register() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Register logic
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.get("name"),
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error);
+      }
+
+      const data = await response.json();
+      // Store token in localStorage or use a state management solution
+      localStorage.setItem("token", data.token);
+      // Redirect to dashboard or home page
+      window.location.href = "/dashboard";
+    } catch (error) {
+      console.error("Registration failed:", error);
+      // Show error to user
+    }
   };
 
   return (
