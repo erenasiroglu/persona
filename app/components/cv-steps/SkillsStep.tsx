@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
+import { sectionStyles, inputStyles, aiButtonStyles } from "./common-styles";
 
 export const SkillsStep = () => {
   const [skills, setSkills] = useState<string[]>([]);
@@ -12,51 +13,51 @@ export const SkillsStep = () => {
       exit={{ opacity: 0, y: -20 }}
       className="space-y-6"
     >
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Your Skills
-        </label>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Type a skill and press Enter"
-            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                const input = e.target as HTMLInputElement;
-                if (input.value.trim()) {
-                  setSkills((prev) => [...prev, input.value.trim()]);
-                  input.value = "";
+      <div className={sectionStyles}>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Your Skills
+          </label>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Type a skill and press Enter"
+              className={inputStyles}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  const input = e.target as HTMLInputElement;
+                  if (input.value.trim()) {
+                    setSkills((prev) => [...prev, input.value.trim()]);
+                    input.value = "";
+                  }
                 }
-              }
-            }}
-          />
-          <button className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 text-sm text-indigo-600 hover:text-indigo-700 font-medium">
-            AI Suggest ✨
-          </button>
+              }}
+            />
+            <button className={aiButtonStyles}>AI Suggest ✨</button>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mt-4">
+          {skills.map((skill, index) => (
+            <div
+              key={index}
+              className="group flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-700 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
+            >
+              {skill}
+              <button
+                onClick={() =>
+                  setSkills((prev) => prev.filter((_, i) => i !== index))
+                }
+                className="opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill, index) => (
-          <div
-            key={index}
-            className="group flex items-center gap-1 px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-full"
-          >
-            {skill}
-            <button
-              onClick={() =>
-                setSkills((prev) => prev.filter((_, i) => i !== index))
-              }
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        ))}
-      </div>
-
-      <div className="p-4 bg-gray-50 rounded-xl">
+      <div className={`${sectionStyles} !p-5`}>
         <h4 className="font-medium text-gray-900 mb-3">
           Popular Skills in Your Field
         </h4>
@@ -67,7 +68,7 @@ export const SkillsStep = () => {
               onClick={() =>
                 setSkills((prev) => [...new Set([...prev, skill])])
               }
-              className="px-3 py-1.5 border border-gray-200 hover:border-indigo-500 hover:bg-indigo-50 text-gray-600 hover:text-indigo-600 rounded-full transition-colors"
+              className="px-3 py-1.5 border border-gray-200 hover:border-gray-300 bg-white hover:bg-gray-50 text-gray-700 rounded-lg transition-colors"
             >
               + {skill}
             </button>

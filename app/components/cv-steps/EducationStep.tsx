@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Plus } from "lucide-react";
+import {
+  sectionStyles,
+  inputStyles,
+  dateInputStyles,
+  textareaStyles,
+  aiButtonStyles,
+  addButtonStyles,
+} from "./common-styles";
 
 export const EducationStep = () => {
   const [educations, setEducations] = useState<any[]>([{ id: 1 }]);
@@ -17,7 +25,7 @@ export const EducationStep = () => {
           key={edu.id}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="p-6 bg-gray-50 rounded-xl space-y-4"
+          className={sectionStyles}
         >
           <div className="flex justify-between items-center">
             <h3 className="font-medium text-gray-900">
@@ -28,7 +36,7 @@ export const EducationStep = () => {
                 onClick={() =>
                   setEducations((prev) => prev.filter((e) => e.id !== edu.id))
                 }
-                className="text-gray-400 hover:text-red-500"
+                className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -36,64 +44,58 @@ export const EducationStep = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
                 School/University
               </label>
               <input
                 type="text"
                 placeholder="e.g. Harvard University"
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
+                className={inputStyles}
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
                 Degree
               </label>
               <input
                 type="text"
                 placeholder="e.g. Bachelor of Science"
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
+                className={inputStyles}
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
               Field of Study
             </label>
             <input
               type="text"
               placeholder="e.g. Computer Science"
-              className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
+              className={inputStyles}
             />
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
                 Start Date
               </label>
-              <input
-                type="month"
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
-              />
+              <input type="month" className={dateInputStyles} />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
                 End Date (or Expected)
               </label>
-              <input
-                type="month"
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
-              />
+              <input type="month" className={dateInputStyles} />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
               Additional Information{" "}
               <span className="text-gray-400">(Optional)</span>
             </label>
@@ -101,11 +103,9 @@ export const EducationStep = () => {
               <textarea
                 placeholder="Notable achievements, activities, or relevant coursework..."
                 rows={3}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-colors"
+                className={textareaStyles}
               />
-              <button className="absolute bottom-2 right-2 px-3 py-1 text-sm text-indigo-600 hover:text-indigo-700 font-medium">
-                AI Assist ✨
-              </button>
+              <button className={aiButtonStyles}>AI Assist ✨</button>
             </div>
           </div>
         </motion.div>
@@ -113,9 +113,12 @@ export const EducationStep = () => {
 
       <button
         onClick={() => setEducations((prev) => [...prev, { id: Date.now() }])}
-        className="w-full py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:border-indigo-500 hover:text-indigo-600 transition-colors"
+        className={addButtonStyles}
       >
-        + Add Another Education
+        <span className="flex items-center justify-center gap-2">
+          <Plus className="w-4 h-4" />
+          Add Another Education
+        </span>
       </button>
     </motion.div>
   );

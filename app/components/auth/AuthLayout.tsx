@@ -1,74 +1,68 @@
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
   title: string;
-  subtitle?: string;
+  subtitle: string;
 }
 
 export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen w-full bg-gray-50 flex">
-      {/* Left side - Content */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-12 relative">
-        <div className="absolute inset-0 bg-pattern opacity-10" />
-        <div className="relative z-10 w-full flex flex-col justify-between">
-          <div>
-            <h1 className="text-4xl font-bold text-white mb-6">
-              Create Your Professional CV in Minutes
-            </h1>
-            <p className="text-lg text-white/80">
-              Join thousands of professionals who trust our platform to showcase
-              their career journey.
-            </p>
-          </div>
-          <div className="space-y-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-              <div className="text-white">
-                <h3 className="font-medium">Professional Templates</h3>
-                <p className="text-sm text-white/70">
-                  Choose from our curated collection of templates
-                </p>
-              </div>
-            </div>
-            {/* Add more features */}
-          </div>
-        </div>
+    <div className="min-h-screen flex items-center justify-center relative p-6">
+      {/* Background Aura Effect */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 -left-4 w-[800px] h-[500px] bg-gradient-to-r from-violet-500/30 via-indigo-500/30 to-purple-500/30 blur-[120px] opacity-20" />
+        <div className="absolute bottom-0 -right-4 w-[800px] h-[500px] bg-gradient-to-l from-rose-500/30 via-fuchsia-500/30 to-indigo-500/30 blur-[120px] opacity-20" />
       </div>
 
-      {/* Right side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+      {/* Content */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative w-full max-w-[400px]"
+      >
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg mb-4">
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>
+          <p className="text-sm text-gray-600">{subtitle}</p>
+        </div>
+
+        {/* Auth Card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-full max-w-md"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
+          className="bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-8 border border-gray-100/50 ring-1 ring-gray-200/50"
         >
-          <Card className="p-8 shadow-lg bg-white border-0">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">{title}</h2>
-              {subtitle && <p className="text-sm text-gray-600">{subtitle}</p>}
-            </div>
-            {children}
-          </Card>
+          {children}
         </motion.div>
-      </div>
+
+        {/* Brand */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-500">
+            Powered by{" "}
+            <span className="font-semibold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+              Persona
+            </span>
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 }

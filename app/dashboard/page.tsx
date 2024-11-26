@@ -16,89 +16,103 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-50 to-indigo-50">
-      <main className="max-w-7xl mx-auto px-8">
+    <div className="relative min-h-screen overflow-hidden bg-white">
+      {/* Reduced blur in Background Aura Effect */}
+      <div className="absolute inset-0 opacity-15">
+        <div className="absolute top-0 left-0 w-full h-[400px] bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[100px]" />
+        <div className="absolute bottom-0 right-0 w-full h-[400px] bg-gradient-to-l from-cyan-500/20 via-blue-500/20 to-indigo-500/20 blur-[100px]" />
+      </div>
+
+      <main className="relative max-w-6xl mx-auto px-6">
         <div className="py-12">
-          <div className="max-w-2xl">
+          {/* More minimal header section */}
+          <div className="max-w-xl mb-12">
+            <span className="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-medium mb-3">
+              Build Your Future
+            </span>
             <h2 className="text-3xl font-bold text-gray-900 mb-3">
-              Create Your Professional Profile
+              Craft Your Professional Story
             </h2>
-            <p className="text-lg text-gray-600 mb-10">
-              Choose your tool and let AI help you craft the perfect document
+            <p className="text-base text-gray-600">
+              Transform your career journey with AI-powered tools designed for
+              success
             </p>
           </div>
 
-          <div className="grid gap-6 max-w-3xl">
+          <div className="grid gap-6 max-w-2xl">
             <motion.div
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -2, scale: 1.005 }}
+              transition={{ duration: 0.2 }}
               className="group cursor-pointer"
               onClick={handleCvCreate}
             >
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-bl-[100px] rounded-tr-2xl" />
+              <div className="relative bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100/50">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-bl-[80px] rounded-tr-xl" />
 
-                <div className="flex items-start gap-6">
+                <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                      <FileText className="w-8 h-8 text-white" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-md shadow-indigo-500/20">
+                      <FileText className="w-6 h-6 text-white" />
                     </div>
                   </div>
 
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-semibold text-gray-900">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-lg font-semibold text-gray-900">
                         AI CV Builder
                       </h3>
-                      <span className="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-sm font-medium">
+                      <span className="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-medium">
                         Recommended
                       </span>
                     </div>
 
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <p className="text-sm text-gray-600 mb-4 leading-relaxed">
                       Create a professional CV in minutes with our AI-powered
-                      builder. Perfect for standing out in today's competitive
-                      job market.
+                      builder.
                     </p>
 
-                    <div className="flex items-center text-indigo-600 font-medium group-hover:gap-2 transition-all">
+                    <div className="flex items-center text-indigo-600 text-sm font-medium group-hover:gap-1.5 transition-all">
                       Get Started
-                      <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" />
                     </div>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            <motion.div whileHover={{ y: -2 }} className="group cursor-pointer">
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-gray-500/10 to-gray-600/10 rounded-bl-[100px] rounded-tr-2xl" />
+            <motion.div
+              whileHover={{ y: -2, scale: 1.005 }}
+              transition={{ duration: 0.2 }}
+              className="group cursor-pointer"
+            >
+              <div className="relative bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100/50">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-gray-500/10 to-gray-600/10 rounded-bl-[80px] rounded-tr-xl" />
 
-                <div className="flex items-start gap-6">
+                <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-lg shadow-gray-500/20">
-                      <PenLine className="w-8 h-8 text-white" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center shadow-md shadow-gray-500/20">
+                      <PenLine className="w-6 h-6 text-white" />
                     </div>
                   </div>
 
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-xl font-semibold text-gray-900">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-lg font-semibold text-gray-900">
                         Cover Letter Generator
                       </h3>
-                      <span className="px-4 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">
+                      <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
                         Coming Soon
                       </span>
                     </div>
 
-                    <p className="text-gray-600 mb-6 leading-relaxed">
+                    <p className="text-sm text-gray-600 mb-4 leading-relaxed">
                       Craft compelling cover letters that capture attention and
-                      showcase your unique value proposition to potential
-                      employers.
+                      showcase your unique value proposition.
                     </p>
 
-                    <div className="flex items-center text-gray-600 font-medium">
+                    <div className="flex items-center text-gray-600 text-sm font-medium">
                       Available Soon
-                      <ArrowRight className="w-5 h-5 ml-2 opacity-50" />
+                      <ArrowRight className="w-4 h-4 ml-1.5 opacity-50" />
                     </div>
                   </div>
                 </div>

@@ -37,17 +37,18 @@ export default function ForgotPassword() {
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6"
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50 mb-6"
           >
             <CheckCircle2 className="w-8 h-8 text-green-600" />
           </motion.div>
           <p className="text-sm text-gray-600 mb-8">
-            We've sent a password reset link to <strong>{email}</strong>
+            We've sent a password reset link to{" "}
+            <span className="font-medium text-gray-900">{email}</span>
           </p>
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full h-11 bg-white hover:bg-gray-50/80 transition-colors rounded-xl border-gray-200 hover:border-gray-300"
             onClick={() => setIsSubmitted(false)}
           >
             Back to reset password
@@ -60,17 +61,19 @@ export default function ForgotPassword() {
   return (
     <AuthLayout
       title="Reset your password"
-      subtitle="Enter your email address and we'll send you instructions to reset your password"
+      subtitle="Enter your email address and we'll send you instructions"
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="email">Email address</Label>
+          <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+            Email address
+          </Label>
           <Input
             id="email"
             name="email"
             type="email"
             placeholder="name@example.com"
-            className="h-11"
+            className="h-11 bg-white/80 border-gray-200 rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all placeholder:text-gray-400"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -79,17 +82,24 @@ export default function ForgotPassword() {
 
         <Button
           type="submit"
-          className="w-full h-11 bg-indigo-600 hover:bg-indigo-500"
+          className="w-full h-11 bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 transition-opacity rounded-xl font-medium shadow-lg shadow-violet-500/20"
           disabled={isLoading}
         >
-          {isLoading ? "Sending link..." : "Send reset link"}
+          {isLoading ? (
+            <div className="flex items-center justify-center gap-2">
+              <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+              <span className="text-white">Sending link...</span>
+            </div>
+          ) : (
+            <span className="text-white">Send reset link</span>
+          )}
         </Button>
 
         <p className="text-center text-sm text-gray-600">
           Remember your password?{" "}
           <Link
             href="/login"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+            className="font-medium text-violet-600 hover:text-violet-500 transition-colors"
           >
             Sign in
           </Link>

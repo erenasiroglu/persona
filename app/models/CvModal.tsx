@@ -32,21 +32,21 @@ const ImportOption: React.FC<{
 }> = ({ icon, title, description, onClick, soon }) => (
   <motion.button
     whileHover={{ y: -2 }}
-    className={`group relative w-full p-4 text-left rounded-xl border 
+    className={`group relative w-full p-5 text-left rounded-xl border 
       ${
         soon
-          ? "border-gray-200 bg-gray-50 cursor-not-allowed"
-          : "border-gray-200 bg-white hover:border-indigo-500 hover:shadow-lg transition-all"
+          ? "border-gray-200 bg-gray-50/50 cursor-not-allowed"
+          : "border-gray-200 bg-white/80 hover:border-violet-500 hover:shadow-lg hover:shadow-violet-500/10 transition-all duration-300"
       }`}
     onClick={soon ? undefined : onClick}
     disabled={soon}
   >
     <div className="flex items-start gap-4">
       <div
-        className={`p-3 rounded-lg ${soon ? "bg-gray-100" : "bg-indigo-50"}`}
+        className={`p-3 rounded-xl ${soon ? "bg-gray-100" : "bg-violet-50"}`}
       >
         {React.cloneElement(icon as React.ReactElement, {
-          className: `w-6 h-6 ${soon ? "text-gray-400" : "text-indigo-600"}`,
+          className: `w-6 h-6 ${soon ? "text-gray-400" : "text-violet-600"}`,
         })}
       </div>
       <div>
@@ -59,7 +59,7 @@ const ImportOption: React.FC<{
             {title}
           </h3>
           {soon && (
-            <span className="px-2 py-0.5 text-xs font-medium text-gray-500 bg-gray-100 rounded-full">
+            <span className="px-2.5 py-0.5 text-xs font-medium text-gray-500 bg-gray-100 rounded-full">
               Coming Soon
             </span>
           )}
@@ -82,7 +82,7 @@ const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
   const router = useRouter();
 
   const steps = [
-    { id: "import", title: "Import Method" },
+    { id: "import", title: "Choose Method" },
     { id: "personal", title: "Personal Information" },
     { id: "experience", title: "Work Experience" },
     { id: "education", title: "Education" },
@@ -149,13 +149,13 @@ const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
             </div>
 
             {/* Progress Bar */}
-            <div className="w-full h-1 bg-gray-100">
+            <div className="w-full h-1 bg-gray-100/50">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{
                   width: `${((currentStep + 1) / steps.length) * 100}%`,
                 }}
-                className="h-full bg-gradient-to-r from-indigo-500 to-purple-600"
+                className="h-full bg-gradient-to-r from-violet-500 to-indigo-600"
               />
             </div>
 
@@ -221,10 +221,10 @@ const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
             </div>
 
             {/* Footer */}
-            <div className="px-6 py-4 bg-gray-50 rounded-b-2xl border-t flex justify-between">
+            <div className="px-6 py-4 bg-gray-50/50 rounded-b-2xl border-t border-gray-200/50 flex justify-between">
               <button
                 onClick={handleBack}
-                className={`flex items-center px-4 py-2 text-sm font-medium rounded-lg
+                className={`flex items-center px-4 py-2 text-sm font-medium rounded-xl
                   ${
                     currentStep === 0
                       ? "text-gray-400 cursor-not-allowed"
@@ -239,8 +239,8 @@ const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
               {currentStep === steps.length - 1 ? (
                 <button
                   onClick={() => router.push("/preview")}
-                  className="flex items-center px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 
-                    text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+                  className="flex items-center px-6 py-2 bg-gradient-to-r from-violet-500 to-indigo-600 
+                    text-white text-sm font-medium rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/20"
                 >
                   Preview CV
                   <ArrowRight className="w-4 h-4 ml-1" />
@@ -248,8 +248,8 @@ const CVModal: React.FC<CVModalProps> = ({ onClose }) => {
               ) : (
                 <button
                   onClick={handleNext}
-                  className="flex items-center px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 
-                    text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+                  className="flex items-center px-6 py-2 bg-gradient-to-r from-violet-500 to-indigo-600 
+                    text-white text-sm font-medium rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-violet-500/20"
                 >
                   Continue
                   <ChevronRight className="w-4 h-4 ml-1" />

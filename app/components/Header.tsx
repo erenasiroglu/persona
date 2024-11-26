@@ -1,30 +1,52 @@
-import React from "react";
+"use client";
 
-const Header = () => {
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export default function Header() {
+  const pathname = usePathname();
+
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
-      <nav className="max-w-7xl mx-auto pl-8 pr-4">
-        <div className="relative flex items-center h-16">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                <span className="text-xl font-bold text-white">P</span>
-              </div>
-              <h1 className="ml-3 text-xl font-semibold text-gray-900">
-                Persona
-              </h1>
+    <motion.header
+      initial={{ y: 0, opacity: 1 }}
+      className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo ve Marka */}
+          <Link
+            href="/dashboard"
+            className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
+          >
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-md">
+              <FileText className="w-4 h-4 text-white" />
             </div>
-            <div className="hidden sm:flex items-center">
-              <span className="h-5 w-[1px] bg-gray-200 mx-3"></span>
-              <span className="text-sm text-gray-600">
-                AI-Powered CV Builder
-              </span>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
-  );
-};
+            <span className="font-bold text-lg bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+              Persona
+            </span>
+          </Link>
 
-export default Header;
+          {/* Navigation */}
+          <nav className="flex items-center space-x-1">
+            {pathname === "/preview" ? (
+              <button
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-violet-500 to-indigo-600 rounded-lg hover:opacity-90 transition-opacity shadow-sm"
+                onClick={() => window.print()}
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                Export PDF
+              </button>
+            ) : (
+              <div className="px-3 py-1.5 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-full">
+                Dashboard
+              </div>
+            )}
+          </nav>
+        </div>
+      </div>
+    </motion.header>
+  );
+}

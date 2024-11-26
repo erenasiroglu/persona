@@ -2,17 +2,26 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // Check if CV data exists in the session/store
-  // If not, redirect to home page
-  const hasData = true; // Replace with actual check
+  // Mevcut URL'i al
+  const pathname = request.nextUrl.pathname;
+  
+  // Response'u oluştur
+  const response = NextResponse.next();
+  
+  // Header'a pathname'i ekle
+  response.headers.set('x-pathname', pathname);
 
-  if (!hasData && request.nextUrl.pathname === '/preview') {
-    return NextResponse.redirect(new URL('/', request.url));
+  // Preview sayfası kontrolü
+  if (pathname === '/preview') {
+    const hasData = true; // Replace with actual check
+    if (!hasData) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
-  matcher: '/preview',
+  matcher: ['/preview', '/dashboard'],
 };
