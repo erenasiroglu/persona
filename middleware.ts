@@ -2,13 +2,17 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+  // Check if CV data exists in the session/store
+  // If not, redirect to home page
+  const hasData = true; // Replace with actual check
+
+  if (!hasData && request.nextUrl.pathname === '/preview') {
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/login", "/signup", "/reset-password"],
+  matcher: '/preview',
 };

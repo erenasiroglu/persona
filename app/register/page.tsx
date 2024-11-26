@@ -1,124 +1,162 @@
 "use client";
-import React from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { useState } from "react";
+import { AuthLayout } from "../components/auth/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 export default function Register() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
+    setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/register", {
+      const response = await fetch("/api/auth/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullName: formData.get("name"),
-          email: formData.get("email"),
-          password: formData.get("password"),
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error);
+        throw new Error("Registration failed");
       }
 
-      const data = await response.json();
-      // Store token in localStorage or use a state management solution
-      localStorage.setItem("token", data.token);
-      // Redirect to dashboard or home page
       window.location.href = "/dashboard";
     } catch (error) {
-      console.error("Registration failed:", error);
-      // Show error to user
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="w-full h-screen bg-white flex items-center justify-center">
-      <div className="w-full max-w-4xl relative flex flex-col items-center justify-center px-4">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, #FF0D6A 33%, #0500FF 33% 66%, #00FFE0 66%)",
-            filter: "blur(150px)",
-          }}
-        />
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+    <AuthLayout
+      title="Create your account"
+      subtitle="Start building your professional CV today"
+    >
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-2">
+          <Label htmlFor="name">Full Name</Label>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="John Doe"
+            className="h-11"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="name@example.com"
+            className="h-11"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <div className="relative">
+            <Input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              className="h-11 pr-10"
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+              required
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeOffIcon className="h-5 w-5" />
+              ) : (
+                <EyeIcon className="h-5 w-5" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        <Button
+          type="submit"
+          className="w-full h-11 bg-indigo-600 hover:bg-indigo-500"
+          disabled={isLoading}
         >
-          <Card className="relative z-10 w-[400px] backdrop-blur-md bg-white/80">
-            <CardHeader>
-              <h1 className="text-3xl font-bold text-center text-[#1E0E62]">
-                Create Account
-              </h1>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="Create a password"
-                    required
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  className="w-full bg-[#1E0E62] hover:bg-[#1E0E62]/90"
-                >
-                  Sign Up
-                </Button>
-              </form>
-            </CardContent>
-            <CardFooter>
-              <div className="text-sm text-center w-full text-[#1E0E62]/60">
-                Already have an account?{" "}
-                <Link
-                  href="/login"
-                  className="text-[#1E0E62] font-medium hover:underline"
-                >
-                  Sign in
-                </Link>
-              </div>
-            </CardFooter>
-          </Card>
-        </motion.div>
-      </div>
-    </div>
+          {isLoading ? "Creating account..." : "Create account"}
+        </Button>
+
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200" />
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-gray-500">
+              Or continue with
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <Button
+            type="button"
+            variant="outline"
+            className="h-11"
+            onClick={() => {
+              /* Add Google signup */
+            }}
+          >
+            <img src="/google.svg" alt="Google" className="w-5 h-5 mr-2" />
+            Google
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            className="h-11"
+            onClick={() => {
+              /* Add GitHub signup */
+            }}
+          >
+            <img src="/github.svg" alt="GitHub" className="w-5 h-5 mr-2" />
+            GitHub
+          </Button>
+        </div>
+
+        <p className="text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Sign in
+          </Link>
+        </p>
+      </form>
+    </AuthLayout>
   );
 }
