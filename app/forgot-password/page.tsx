@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export default function ForgotPassword() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,12 +17,16 @@ export default function ForgotPassword() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
-      // Add your password reset logic here
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulated delay
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+
+      if (error) throw error;
       setIsSubmitted(true);
     } catch (error) {
-      console.error(error);
+      console.error("Password reset failed:", error);
     } finally {
       setIsLoading(false);
     }

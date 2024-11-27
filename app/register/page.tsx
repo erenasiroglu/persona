@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,20 +21,23 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            full_name: formData.name,
+          },
+        },
       });
 
-      if (!response.ok) {
-        throw new Error("Registration failed");
-      }
+      if (error) throw error;
 
       window.location.href = "/dashboard";
     } catch (error) {
-      console.error(error);
+      console.error("Registration failed:", error);
     } finally {
       setIsLoading(false);
     }

@@ -12,6 +12,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { AuthLayout } from "../components/auth/AuthLayout";
+import { supabase } from "@/lib/supabase";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,29 +21,22 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.get("email"),
-          password: formData.get("password"),
-        }),
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error);
-      }
+      if (error) throw error;
 
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
+      // Successful login
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Login failed:", error);
+      // Add error handling here
     } finally {
       setIsLoading(false);
     }
