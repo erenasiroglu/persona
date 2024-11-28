@@ -16,12 +16,21 @@ export default function Home() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white">
+    <div className="relative min-h-screen overflow-hidden bg-white  overflow-hidden">
       {/* Reduced blur in Background Aura Effect */}
-      <div className="absolute inset-0 opacity-15">
-        <div className="absolute top-0 left-0 w-full h-[400px] bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-[100px]" />
-        <div className="absolute bottom-0 right-0 w-full h-[400px] bg-gradient-to-l from-cyan-500/20 via-blue-500/20 to-indigo-500/20 blur-[100px]" />
-      </div>
+
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(90deg, #FF0D6A 33%, #0500FF 33% 66%, #00FFE0 66%)",
+          filter: "blur(150px)",
+          opacity: 0.08,
+          width: "200%",
+          height: "200%",
+          transform: "translate(-25%, -25%)",
+        }}
+      ></div>
 
       <main className="relative max-w-6xl mx-auto px-6">
         <div className="py-12">

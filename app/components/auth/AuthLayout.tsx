@@ -8,12 +8,19 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center relative p-6">
-      {/* Background Aura Effect */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 -left-4 w-[800px] h-[500px] bg-gradient-to-r from-violet-500/30 via-indigo-500/30 to-purple-500/30 blur-[120px] opacity-20" />
-        <div className="absolute bottom-0 -right-4 w-[800px] h-[500px] bg-gradient-to-l from-rose-500/30 via-fuchsia-500/30 to-indigo-500/30 blur-[120px] opacity-20" />
-      </div>
+    <div className="min-h-screen flex items-center justify-center relative p-6 overflow-hidden">
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "linear-gradient(90deg, #FF0D6A 33%, #0500FF 33% 66%, #00FFE0 66%)",
+          filter: "blur(200px)",
+          opacity: 0.1,
+          width: "200%",
+          height: "200%",
+          transform: "translate(-25%, -25%)",
+        }}
+      ></div>
 
       {/* Content */}
       <motion.div
