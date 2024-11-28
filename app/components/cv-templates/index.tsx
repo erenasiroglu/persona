@@ -1,7 +1,14 @@
 import { ModernTemplate } from "./ModernTemplate";
 import { ProfessionalTemplate } from "./ProfessionalTemplate";
 import { MinimalTemplate } from "./MinimalTemplate";
-import { TemplateProps } from "@/app/types/cv";
+import { Education, Experience, PersonalInfo } from "../../types/cv";
+
+interface TemplateProps {
+  personalInfo: PersonalInfo;
+  experiences: Experience[];
+  education: Education[];
+  skills: string[];
+}
 
 const templates = {
   modern: ModernTemplate,
