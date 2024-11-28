@@ -1,3 +1,12 @@
+import { PersonalInfo, Experience, Education } from "@/app/types/cv";
+
+interface TemplateProps {
+  personalInfo: PersonalInfo;
+  experiences: Experience[];
+  education: Education[];
+  skills: string[];
+}
+
 export const MinimalTemplate: React.FC<TemplateProps> = ({
   personalInfo,
   experiences,
