@@ -4,6 +4,7 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import { authConfig } from "../app/lib/auth.config";
 import Providers from "@/components/Providers";
+import { SessionProvider } from "next-auth/react";
 import Header from "@/components/Header";
 import { cn } from "@/lib/utils";
 
@@ -24,10 +25,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "min-h-screen bg-gray-50")}>
-        <Providers session={session}>
+        <SessionProvider session={session}>
           <Header />
           {children}
-        </Providers>
+        </SessionProvider>
       </body>
     </html>
   );
