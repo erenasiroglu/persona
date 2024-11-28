@@ -23,7 +23,11 @@ interface StepContextType {
   }[];
 }
 
-const steps = [
+const steps: {
+  id: Step;
+  title: string;
+  description?: string;
+}[] = [
   {
     id: "start",
     title: "Get Started",
@@ -54,7 +58,7 @@ const steps = [
     title: "Preview & Download",
     description: "Review and download your CV",
   },
-] as const;
+];
 
 const StepContext = createContext<StepContextType | undefined>(undefined);
 
@@ -93,10 +97,11 @@ export function StepProvider({ children }: { children: React.ReactNode }) {
     </StepContext.Provider>
   );
 }
-export function useStep() {
+
+export function useStepContext() {
   const context = useContext(StepContext);
   if (context === undefined) {
-    throw new Error("useStep must be used within a StepProvider");
+    throw new Error("useStepContext must be used within a StepProvider");
   }
   return context;
 }
